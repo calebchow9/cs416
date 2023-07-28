@@ -20,7 +20,7 @@ var bar_svg = d3
   .attr("height", chart_height + margin + margin)
   .attr("transform", "translate(" + margin + "," + margin + ")");
 
-var y = d3.scaleLinear().domain([0, 100000]).range([plot_height, 0]);
+var y = d3.scaleLinear().domain([0, 100]).range([plot_height, 0]);
 var x = d3.scaleLinear().domain([0, 100]).range([0, plot_width]);
 
 var bar_y = d3.scaleLinear().domain([0, 100]).range([chart_height, 0]);
@@ -58,7 +58,7 @@ d3.csv("https://calebchow9.github.io/cs416/state_demographics.csv").then(
       .enter()
       .append("circle")
       .attr("cy", function (d) {
-        return y(d["IncomeMedianHouseholdIncome"]);
+        return y(d["Income.Persons Below Poverty Level"]);
       })
       .attr("cx", function (d) {
         return x(d["EducationBachelorsDegreeorHigher"]);
@@ -94,7 +94,7 @@ d3.csv("https://calebchow9.github.io/cs416/state_demographics.csv").then(
         div.style("opacity", 1);
         div
           .html(
-            `${d.State}<hr>${d.EducationBachelorsDegreeorHigher}%, $${d.IncomeMedianHouseholdIncome}`
+            `${d.State}<hr>${d.EducationBachelorsDegreeorHigher}%, $${d["Income.Persons Below Poverty Level"]}`
           )
           .style("left", `${d3.event.pageX + 10}px`)
           .style("top", d3.event.pageY - 15 + "px");
@@ -118,32 +118,32 @@ d3.select("svg")
 const annotations = [
   {
     note: {
-      label: "58.5% have bachelors, $86,420 median household income",
-      title: "District of Columbia",
+      label: "22% have bachelor's, 19.6% below poverty line",
+      title: "Mississippi",
     },
     type: d3.annotationCalloutCircle,
     subject: {
       radius: 10, // circle radius
       radiusPadding: 0,
     },
-    x: x(58.5) + margin,
-    y: y(86420) + margin,
-    dy: 100,
-    dx: 100,
+    x: x(22) + margin,
+    y: y(19.6) + margin,
+    dy: -100,
+    dx: 50,
   },
   {
     note: {
-      label: "20.6% have bachelors, $46,711 median household income",
-      title: "West Virginia",
+      label: "43.7% have bachelor's, 9.4% below poverty line",
+      title: "Massachusetts",
     },
     type: d3.annotationCalloutCircle,
     subject: {
       radius: 10, // circle radius
       radiusPadding: 0,
     },
-    x: x(20.6) + margin,
-    y: y(46711) + margin,
-    dy: 100,
+    x: x(43.7) + margin,
+    y: y(9.4) + margin,
+    dy: -100,
     dx: 100,
   },
 ];
@@ -168,4 +168,4 @@ svg
   .attr("x", -175)
   .attr("dy", ".75em")
   .attr("transform", "rotate(-90)")
-  .text("Median Household Income ($)");
+  .text("Population living below Poverty Line (%)");
