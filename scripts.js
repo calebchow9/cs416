@@ -5,7 +5,9 @@ var margin = 250;
 var y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 var x = d3.scaleLinear().domain([0, 100]).range([0, width]);
 
-d3.csv("./state_demographics.csv").then(function (data) {
+d3.csv(
+  "https://github.com/calebchow9/cs416/blob/master/state_demographics.csv"
+).then(function (data) {
   d3.select("svg")
     .append("g")
     .attr("transform", "translate(" + margin + "," + margin + ")")
